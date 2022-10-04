@@ -1,0 +1,27 @@
+{
+  "name": "4_travel_journal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "boiler_plate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericvpineda/travel_journal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericvpineda/travel_journal/issues"
+  },
+  "homepage": "https://github.com/ericvpineda/travel_journal#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "method-overload": "^0.1.1",
+    "mongoose": "^6.6.4",
+    "uuid": "^9.0.0"
+  }
+}

@@ -10,13 +10,23 @@ const boilerPlate = (name) => {
       <title>${name}</title>
     </head>
     <body>
+      <h1>${name}</h1>
       
     </body>
     </html>`
 }
 
-const projectName = "project"
-fs.mkdirSync(projectName.toLowerCase());
-fs.writeFileSync(`${projectName}/style.css`, "");
-fs.writeFileSync(`${projectName}/index.html`, boilerPlate("project"));
-fs.writeFileSync(`${projectName}/script.js`, "");
+// Note: css/js imports folder 
+fs.mkdirSync("public");
+
+// Note: models folder
+fs.mkdirSync("models");
+
+// Note: templers folder (rendered with ejs templating)
+const projectName = "views"
+fs.mkdirSync(projectName);
+fs.mkdirSync(projectName + "/partials");
+fs.writeFileSync(`${projectName}/new.ejs`, boilerPlate("new"));
+fs.writeFileSync(`${projectName}/edit.ejs`, boilerPlate("edit"));
+fs.writeFileSync(`${projectName}/show.ejs`, boilerPlate("show"));
+fs.writeFileSync(`${projectName}/home.ejs`, boilerPlate("home"));
