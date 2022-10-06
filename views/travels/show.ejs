@@ -1,18 +1,24 @@
-<!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Travel Journal</title>
-    </head>
-    <body>
-      <h1><%= travel.title %> </h1>
-      <ul>
-        <li>Description: <%= travel.description %> </li> 
-        <li>Location: <%= travel.location %> </li> 
-        <li>Price: $<%= travel.price %> </li> 
-      </ul>
-      
-    </body>
-    </html>
+<% layout('layout/boilerplate') %>
+
+<div class="container my-3">
+  <div class="row">
+    <h1 class="card-title text-center m-4"><%= travel.title %></h1>
+
+    <div class="col-6 offset-3">
+      <div class="card">
+        <img src="<%= travel.img %> " class="img-fluid" />
+        <div class="card-body">
+          <div class="card-text">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Description: <%= travel.description %></li>
+              <li class="list-group-item">Location: <%= travel.location %></li>
+              <li class="list-group-item">Price: $<%= travel.price %></li>
+            </ul>
+          </div>
+          <a class="btn btn-primary" href="/travels">Back to Index</a>
+          <a class="btn btn-info" href="/travels/<%=travel._id %>/edit ">Edit</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

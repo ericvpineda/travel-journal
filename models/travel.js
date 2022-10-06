@@ -11,7 +11,8 @@ const travelSchema = new Schema({
         min : 0
     }, 
     description : String, 
-    location : String 
+    location : String,
+    img : String 
 })
 
 const Travel = mongoose.model('Travel', travelSchema);

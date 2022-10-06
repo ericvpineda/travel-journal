@@ -1,13 +1,52 @@
-<!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>new</title>
-    </head>
-    <body>
-      <h1>new</h1>
+<% layout('layout/boilerplate') %> 
+
+  <div class="container">
+
+    <div class="row">
+
+      <h1 class="text-center my-3">New Travel</h1>
+
+        <div class="col-6 offset-3">
+
+          <form action="/travels" method="post">
+            <div class="mb-3">
+              <label class="form-label" for="travel[title]">Title:</label>
+              <input  class="form-control" type="text" name="travel[title]" placeholder="Title of current travel">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="travel[description]">Description:</label>
+              <input class="form-control" name="travel[description]" placeholder="Describe your travel">
+            </div>
+            <label class="form-label" for="travel[price]">Price:</label>
+            <div class="mb-3 input-group">
+              <span class="input-group-text">$</span>
+              <input class="form-control" type="text" name="travel[price]" placeholder="Enter 0 if it was cost-free">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="travel[location]">Location:</label>
+              <input class="form-control" type="text" name="travel[location]" placeholder="City, State">
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label" for="travel[img]">Upload Image:</label>
+              <input class="form-control" type="file" name="travel[img]">
+            </div>
+            
+            <div class="mb-3">
+              <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+        
+            <div>
+              <button href="/travels" class="btn btn-primary">Return to Index</button>
+            </div>
+            
+          </form>
+
+        </div>
+
+    </div>
+
+  </div>
+  
       
-    </body>
-    </html>
+  
