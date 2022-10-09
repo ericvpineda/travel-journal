@@ -1,10 +1,12 @@
 <% layout('layout/boilerplate') %>
+<link rel="stylesheet" href="/css/stars.css">
 
-<div class="container my-3">
-  <div class="row">
-    <h1 class="card-title text-center m-4"><%= travel.title %></h1>
+<div class="row mb-5">
+    <h1 class="card-title text-center mb-4"><%= travel.title %></h1>
 
-    <div class="col-6 offset-3">
+    <div class="col-6">
+
+      <!-- Travel Item  -->
       <div class="card">
         <img src="<%= travel.img %> " class="img-fluid" />
         <div class="card-body">
@@ -13,12 +15,83 @@
               <li class="list-group-item">Description: <%= travel.description %></li>
               <li class="list-group-item">Location: <%= travel.location %></li>
               <li class="list-group-item">Price: $<%= travel.price %></li>
+              <li class="list-group-item">Submitted by: <%= travel.author.username %></li>
+              <% if (currentUser && travel.author.equals(currentUser._id)) { %> 
+                <li class="list-group-item">
+                  <a class="btn btn-primary" href="/travels">Back to Travel Journal</a>
+                  <a class="btn btn-info" href="/travels/<%=travel._id %>/edit ">Edit Travel</a>
+                </li>
+              <% } %> 
             </ul>
           </div>
-          <a class="btn btn-primary" href="/travels">Back to Index</a>
-          <a class="btn btn-info" href="/travels/<%=travel._id %>/edit ">Edit</a>
+          
         </div>
       </div>
+
+    </div>
+
+    <div class="col-6">
+      <% if (currentUser) { %> 
+
+      <h2 class="mb-4">Leave a Review</h2>
+
+       <!-- Review Form -->
+       <form class="validated-form mb-3" action="/travels/<%= travel._id %>/reviews" method="post" novalidate>
+ 
+        <div>
+
+          <fieldset class="starability-basic">
+            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+
+        </div>
+        
+        <div class="mb-3">
+
+          <label class="mb-3"for="body">Give Description</label>
+          <textarea class="form-control" name="review[body]" cols="30" rows="2" required></textarea>
+          <div class="valid-feedback">Look's good!</div>
+        </div>
+
+        <button class="btn btn-success">Submit Review</button>
+
+      </form>
+    <% } %> 
+
+
+      <% for(let review of travel.reviews) { %> 
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="card-title"> Rating:</h3>
+            <p class="starability-result" data-rating="<%= review.rating %>">
+              Rated: <%= review.rating %> stars
+            </p>
+            <p class="card-text text-muted">
+              Reviewed by: <%= review.author.username %>
+            </p>
+            <p class="card-text">
+              Description: <%= review.body %>
+            </p>
+            <% if (currentUser && review.author.equals(currentUser._id)) { %> 
+              <form class="" action="/travels/<%= travel._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+                <button class="btn btn-danger">Delete</button>
+              </form>
+            <% } %> 
+          </div>
+        </div>
+
+      <% } %> 
+
     </div>
   </div>
-</div>

@@ -1,56 +1,53 @@
 <% layout('layout/boilerplate') %> 
 
-  <div class="container">
+  <div class="row">
 
-    <div class="row">
+    <h1 class="text-center my-3">Edit Travel</h1>
 
-      <h1 class="text-center my-3">Edit Travel</h1>
+      <div class="col-6 offset-3">
 
-        <div class="col-6 offset-3">
-
-          <form action="/travels/<%= travel._id %>?_method=PUT " method="post">
-            <div class="mb-3">
-              <label class="form-label" for="travel[title]">Title:</label>
-              <input  class="form-control" type="text" name="travel[title]" value="<%= travel.title %> ">
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="travel[description]">Description:</label>
-              <input class="form-control" name="travel[description]" value="<%= travel.description %> ">
-            </div>
-            <label class="form-label" for="travel[price]">Price:</label>
-            <div class="mb-3 input-group">
-              <span class="input-group-text">$</span>
-              <input class="form-control" type="text" name="travel[price]" value=<%= travel.price %> >
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="travel[location]">Location:</label>
-              <input class="form-control" type="text" name="travel[location]" value="<%= travel.location %> ">
-            </div>
-            
-            <!-- <div class="mb-3">
-              <label class="form-label" for="travel[img]">Upload Image:</label>
-              <input class="form-control" type="file" name="travel[img]">
-            </div> -->
-                       
-          </form>
+        <form action="/travels/<%= travel._id %>?_method=PUT " method="post" novalidate class="validated-form">
+          <div class="mb-3">
+            <label class="form-label" for="title">Title:</label>
+            <input  class="form-control" type="text" name="travel[title]" value="<%= travel.title %>" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="description">Description:</label>
+            <input class="form-control" name="travel[description]" value="<%= travel.description %>" required>
+          </div>
+          <label class="form-label" for="price">Price:</label>
+          <div class="mb-3 input-group">
+            <span class="input-group-text">$</span>
+            <input class="form-control" type="text" name="travel[price]" value=<%= travel.price %> required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="location">Location:</label>
+            <input class="form-control" type="text" name="travel[location]" value="<%= travel.location %>" required>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label" for="img">Upload Image:</label>
+            <!-- <input class="form-control" type="file" name="travel[img]"> -->
+            <input class="form-control" type="text" name="travel[img]" value="<%= travel.img %>" required>
+          </div>
 
           <div class="mb-3">
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-success">Update Travel</button>
           </div>
+                      
+        </form>
+        
 
-          <div class="d-flex justify-content-between">
-            <button href="/travels" class="btn btn-primary">Return to Index</button>
-            
-            <form action="/travels/<%= travel._id %>?_method=DELETE" method="post">
-              <button class="btn btn-danger">Delete</button>
-            </form>
+        <div class="d-flex justify-content-between">
+          <form action="/travels/<%= travel._id %>?_method=DELETE" method="post">
+            <button class="btn btn-danger">Delete</button>
+          </form>
           
-          </div>
-
+          <a href="/travels" class="btn btn-primary">Back to Travel Journal</a>
         </div>
 
-    </div>
+      </div>
 
   </div>
+
         
-      <a href="/travels/<%= travel._id %>">Back to Travel </a>
