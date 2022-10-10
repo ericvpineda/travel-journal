@@ -24,10 +24,13 @@ Issues:
 
 Solved Issues:
 - Passport duplicate emails from different accounts 
-    - remove 'unique' key from users model 
+    --> remove 'unique' key from users model 
 - session returnTo in users.post('/login') not return to previous login route
-    - add 'keepSessionInfo : true' into passport.authenticate()
+    --> add 'keepSessionInfo : true' into passport.authenticate()
 - reviews made by other people is attributed only to Alice
-    - show.ejs -- compare current authoer to review author (not travel author)
+    --> show.ejs -- compare current authoer to review author (not travel author)
+- changin width of mapbox-sdk-js div causes pin to not be centered 
+    --> inside of map.on("style.load", () => {...}), add in map.resize(); 
+
 
 EJS Shortcuts: https://marketplace.visualstudio.com/items?itemName=DigitalBrainstem.javascript-ejs-support

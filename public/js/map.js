@@ -1,6 +1,5 @@
 // js to show mapbox map onto show.ejs
 mapboxgl.accessToken = mapToken;
-
 const map = new mapboxgl.Map({
   container: "map", // container ID
   style: "mapbox://styles/mapbox/streets-v11", // style URL
@@ -9,8 +8,10 @@ const map = new mapboxgl.Map({
   projection: "globe", // display the map as a 3D globe
   style: 'mapbox://styles/mapbox/outdoors-v11'
 });
+
 map.on("style.load", () => {
   map.setFog({}); // Set the default atmosphere style
+  map.resize(); 
 });
 
 const marker = new mapboxgl.Marker()
@@ -23,4 +24,4 @@ const marker = new mapboxgl.Marker()
       `
     )
   )
-  .addTo(map);
+.addTo(map);

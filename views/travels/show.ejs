@@ -1,5 +1,8 @@
 <% layout('layout/boilerplate') %>
 <link rel="stylesheet" href="/css/stars.css">
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
+
 
 <div class="row mb-5">
     <h1 class="card-title text-center mb-4"><%= travel.title %></h1>
@@ -54,7 +57,7 @@
     </div>
 
     <div class="col-6">
-      <div id='map' style='width: 100%; height: 300px;'></div>
+      <div class="mb-4" id='map' style='width: 100%; height: 300px;'></div>
 
       <% if (currentUser) { %> 
 
@@ -121,10 +124,6 @@
     </div>
   </div>
 
-  
-<!-- Mapbox GL js  -->
-<script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
 <!-- Token used for map.js  -->
 <script> 
   const mapToken = '<%- process.env.MAPBOX_TOKEN %>'

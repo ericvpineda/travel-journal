@@ -19,7 +19,7 @@ const createForm = async (req, res, next) => {
     const geoData = await stylesServices.forwardGeocode({
         query : req.body.travel.location,
         limit : 1
-    }).send()
+    }).send();
     
     const travel = new Travel(req.body.travel);
     // Save translated coordinates 
