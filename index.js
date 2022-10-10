@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config()
+}
+
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -24,6 +28,7 @@ const userRoutes = require('./routes/users');
 // Error handling functions 
 const ExpressError = require('./utils/expressError');
 
+
 // Package for layout templating
 app.engine('ejs', ejsMate)
 
@@ -32,7 +37,7 @@ app.set('view engine', 'ejs');
 // Set routes to viewws folder
 app.set('views', path.join(__dirname, '/views'));
 
-// Allow parse url form data 
+// Allow parse url form (tag) data 
 app.use(express.urlencoded({extended : true}));
 // Allow parse json data
 app.use(express.json());

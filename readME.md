@@ -12,9 +12,15 @@ Future features:
 - store author username on each review (to prevent having to populate within camp and review in travel.js route)
 - method to delete users profile
 - have different forms of index page (ex: only text, only pictures, etc.)
+- have default image if all images are deleted
+    - restrict type of image uploaded? (server, client)
+- normalize picture size on slideshow
 
 Issues:
 - find way to validate strong password from user
+- travel.post('/') route - need to validate travel before uploading image
+    - multer first uploads while parsing, then sends parsed body to req.body 
+- how to limit number of uploads to upload to cloudinary
 
 Solved Issues:
 - Passport duplicate emails from different accounts 

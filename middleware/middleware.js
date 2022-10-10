@@ -31,8 +31,9 @@ const validateTravel = (req, res, next) => {
             price: Joi.number().min(0),
             description: Joi.string().required(),
             location: Joi.string().required(),
-            img: Joi.string().required()
-        }).required()
+            // img: Joi.string().required()
+        }).required(),
+        deleteImages: Joi.array()
     })
     const {error} = travelSchema.validate(req.body)
     if (error) {

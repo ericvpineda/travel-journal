@@ -6,9 +6,32 @@
 
     <div class="col-6">
 
+      <div id="travelControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          
+          <% travel.img.forEach((image, i) => { %>
+            <div class="carousel-item <%= i == 0 ? 'active' : "" %>" >
+              <img src="<%= image.url %>" class="d-block w-100">
+              </div>
+          <% }) %>
+          
+        </div>
+        <% if (travel.img.length > 1) { %>
+          <button class="carousel-control-prev" type="button" data-bs-target="#travelControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#travelControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+          <% } %>
+        </div>
+        
+
       <!-- Travel Item  -->
-      <div class="card">
-        <img src="<%= travel.img %> " class="img-fluid" />
+      <div class="card">  
+  
         <div class="card-body">
           <div class="card-text">
             <ul class="list-group list-group-flush">
@@ -19,7 +42,7 @@
               <% if (currentUser && travel.author.equals(currentUser._id)) { %> 
                 <li class="list-group-item">
                   <a class="btn btn-primary" href="/travels">Back to Travel Journal</a>
-                  <a class="btn btn-info" href="/travels/<%=travel._id %>/edit ">Edit Travel</a>
+                  <a class="btn btn-warning" href="/travels/<%=travel._id %>/edit ">Edit Travel</a>
                 </li>
               <% } %> 
             </ul>
@@ -31,6 +54,8 @@
     </div>
 
     <div class="col-6">
+      <div id='map' style='width: 100%; height: 300px;'></div>
+
       <% if (currentUser) { %> 
 
       <h2 class="mb-4">Leave a Review</h2>
@@ -95,3 +120,15 @@
 
     </div>
   </div>
+
+  
+<!-- Mapbox GL js  -->
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
+<!-- Token used for map.js  -->
+<script> 
+  const mapToken = '<%- process.env.MAPBOX_TOKEN %>'
+  // Note: unable to remove errors due to no-string-needed for interpoloation
+  const travel = <%- JSON.stringify(travel) %> 
+</script>
+<script src="/js/map.js"></script>

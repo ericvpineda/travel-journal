@@ -1,4 +1,8 @@
 const Travel = require('../models/travel');
+const {cloudinary} = require('../cloudinary');
+const mbxGeocode = require('@mapbox/mapbox-sdk/services/geocoding')
+const stylesServices = mbxGeocode({accessToken: process.env.MAPBOX_TOKEN});
+
 
 // -- Control Functions for Travel -- 
 
@@ -12,10 +16,19 @@ const newForm = (req, res) => {
 }
 
 const createForm = async (req, res, next) => {
+    const geoData = await stylesServices.forwardGeocode({
+        query : req.body.travel.location,
+        limit : 1
+    }).send()
     
-    const travel = new Travel(req.body.travel)
+    const travel = new Travel(req.body.travel);
+    // Save translated coordinates 
+    travel.geometry = geoData.body.features[0].geometry
+    // Create file objects for uploaded images
+    travel.img = req.files.map(file => ({url:file.path, filename: file.filename}));
     travel.author = req.user._id;
     await travel.save();
+    console.log(travel)
     req.flash('success', `Success! You've made a new Travel.`)
     res.redirect('/travels',)
 }
@@ -44,6 +57,19 @@ const editForm = async (req, res) => {
 
 const updateForm = async (req, res) => {
     const travel = await Travel.findByIdAndUpdate(req.params.id, {...req.body.travel});
+    const img = req.files.map(file => ({url:file.path, filename: file.filename}));
+    travel.img.push(...img);
+    await travel.save();
+    if (req.body.deleteImages) {
+        console.log(req.body.deleteImages)
+        for (let file of req.body.deleteImages) {
+            if (file.slice(-6) !== ".splsh") {
+                await cloudinary.uploader.destroy(file);
+            }
+        }
+        await travel.updateOne({$pull : {img : {filename : {$in : req.body.deleteImages}}}});
+        console.log(travel)
+    }
     if (!travel) {
         req.flash('error', 'Error: Travel is invalid.')
         return res.redirect('/travels')

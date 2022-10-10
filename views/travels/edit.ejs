@@ -1,53 +1,69 @@
 <% layout('layout/boilerplate') %> 
 
-  <div class="row">
+  <div class="row mb-5">
 
     <h1 class="text-center my-3">Edit Travel</h1>
 
       <div class="col-6 offset-3">
 
-        <form action="/travels/<%= travel._id %>?_method=PUT " method="post" novalidate class="validated-form">
+        <form action="/travels/<%= travel._id %>?_method=PUT " method="post" class="validated-form" novalidate enctype="multipart/form-data">
           <div class="mb-3">
             <label class="form-label" for="title">Title:</label>
             <input  class="form-control" type="text" name="travel[title]" value="<%= travel.title %>" required>
           </div>
           <div class="mb-3">
             <label class="form-label" for="description">Description:</label>
-            <input class="form-control" name="travel[description]" value="<%= travel.description %>" required>
+            <textarea class="form-control" name="travel[description]" id="" cols="30" rows="2" required><%= travel.description %></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="location">Location:</label>
+            <input class="form-control" type="text" name="travel[location]" value="<%= travel.location %>" required>
           </div>
           <label class="form-label" for="price">Price:</label>
           <div class="mb-3 input-group">
             <span class="input-group-text">$</span>
             <input class="form-control" type="text" name="travel[price]" value=<%= travel.price %> required>
           </div>
-          <div class="mb-3">
-            <label class="form-label" for="location">Location:</label>
-            <input class="form-control" type="text" name="travel[location]" value="<%= travel.location %>" required>
-          </div>
           
           <div class="mb-3">
             <label class="form-label" for="img">Upload Image:</label>
             <!-- <input class="form-control" type="file" name="travel[img]"> -->
-            <input class="form-control" type="text" name="travel[img]" value="<%= travel.img %>" required>
+            <input class="form-control" type="file" name="img" value="<%= travel.img %>" multiple>
           </div>
 
-          <div class="mb-3">
-            <button type="submit" class="btn btn-success">Update Travel</button>
+          <div class="mb-1">
+            <label class="form-label">Select images to delete:</label>
           </div>
-                      
-        </form>
-        
 
-        <div class="d-flex justify-content-between">
-          <form action="/travels/<%= travel._id %>?_method=DELETE" method="post">
-            <button class="btn btn-danger">Delete</button>
-          </form>
-          
-          <a href="/travels" class="btn btn-primary">Back to Travel Journal</a>
+          <% if (travel.img.length) { %> 
+            <div style="white-space:nowrap; overflow: auto;">
+            <% travel.img.forEach((image, i) => { %>
+              <div class="mb-3" style="display:inline-block; position:relative; width:100px; height: 100px; margin-right: 10px;">
+                <label class="custom-control-label" for="img-<%= i %>">
+                <img src="<%= image.url %> " class="img-thumbnail" style="height:100px">
+                <!-- </label> -->
+                <input type="checkbox" class="form-check-input" id="img-<%= i %>" name='deleteImages[]' value="<%= image.filename %>" style="position:absolute; bottom: 0px; right: 0px;">
+              </div>
+            <% }) %> 
+            </div>
+          <% } %> 
+                
+          <div style="clear:both" class="d-flex justify-content-between">
+            <div>
+              <button type="submit" class="btn btn-success">Update Travel</button>
+              <a href="/travels" class="btn btn-primary">Back to Travel Journal</a>
+            </div>
+            <button class="btn btn-danger" id="deleteTravel">Delete Travel</button>
+          </div>
         </div>
+        
+      </form>
 
-      </div>
-
+      <!-- Note: Unable to place form element within form element -->
+      <form id="deleteForm" action="/travels/<%= travel._id %>?_method=DELETE" method="post"></form>    
   </div>
+
+  <!-- js for delete travel button -->
+  <script src="/js/app.js"></script>
 
         
