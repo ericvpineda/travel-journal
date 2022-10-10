@@ -12,9 +12,12 @@ const User = require('./models/users');
 const methodOveride = require('method-override')
 const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
-
 const session = require('express-session');
 const flash = require('connect-flash')
+const MongoDbStore = require('connect-mongo');
+const secret = process.env.SECRET || 'thisisahorriblesecret';
+
+let dbUrl = process.env.ATLAS_MONGO_DB_URL || 'mongodb://localhost:27017/travelJournal';
 
 // Allow for multiple strategies for auth 
 const passport = require('passport');
@@ -27,7 +30,10 @@ const userRoutes = require('./routes/users');
 
 // Error handling functions 
 const ExpressError = require('./utils/expressError');
-
+// Help prevent cross site scripting (xss) attacks
+const mongoSanitize = require('express-mongo-sanitize');
+// Middleware to manipulate headers for security 
+const helmet = require('helmet');
 
 // Package for layout templating
 app.engine('ejs', ejsMate)
@@ -47,15 +53,29 @@ app.use(methodOveride('_method'))
 app.use(morgan('common'))
 // Allow for static files
 app.use(express.static(path.join(__dirname, 'public')))
+
+const store = new MongoDbStore({
+    mongoUrl: dbUrl,
+    secret,
+    touchAfter: 24 * 60 * 60 // Prevent resaves from every user refresh
+})
+
+store.on("error", (e) => {
+    console.log("Session store error.");
+})
+
 // Allow for sessions (default sessions store: memoryStore)
 app.use(session({
-    secret : 'thisisahorriblesecret',
+    store, 
+    name : 'session', // name session id
+    secret,
     resave : false, // Prevent sesseion from being saved back to session store
     saveUninitialized : true, // Prevent forse session that is uninitialized to be saved to store
     cookie : {
         expires : Date.now() + oneWeek, // In milliseconds
         maxAge : oneWeek,
-        httpOnly : true // Prevent cookie from accessed on client side script
+        httpOnly : true, // Prevent (session) cookie from accessed on client side js
+        // secure : true // Cookies only work on https (local host not https)
     }
 }))
 // Allow for flash middleware
@@ -70,6 +90,64 @@ passport.use(new LocalStrategy(User.authenticate()));
 // Used for storing and remove users in session
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+// Sanitize query strings to prevent xss db attacks
+app.use(mongoSanitize({
+    replaceWith : '_'
+}));
+
+const scriptSrcUrls = [
+    "https://api.tiles.mapbox.com/",
+    "https://api.mapbox.com/",
+    "https://kit.fontawesome.com/",
+    "https://cdnjs.cloudflare.com/",
+    "https://cdn.jsdelivr.net/",
+    "https://code.jquery.com/",
+    "https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"
+];
+const styleSrcUrls = [
+    "https://kit-free.fontawesome.com/",
+    "https://stackpath.bootstrapcdn.com/",
+    "https://api.mapbox.com/",
+    "https://api.tiles.mapbox.com/",
+    "https://fonts.googleapis.com/",
+    "https://use.fontawesome.com/",
+    "https://cdn.jsdelivr.net/",
+    "https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css"
+];
+const connectSrcUrls = [
+    "https://api.mapbox.com/",
+    "https://a.tiles.mapbox.com/",
+    "https://b.tiles.mapbox.com/",
+    "https://events.mapbox.com/",
+];
+
+const imgSrcUrls = [
+    "https://res.cloudinary.com/traveljournal/", 
+    "https://images.unsplash.com/",
+    "https://source.unsplash.com",
+]
+
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: ["'self'"],
+            fontSrc: ["'self'"],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                ...imgSrcUrls
+            ],
+            objectSrc: [],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+        },
+    })
+);
 
 // Flash middleware
 // Note: can access in .ejs files via end value (ex: currentUser)
@@ -88,8 +166,12 @@ app.use('/travels', travelRoutes);
 app.use('/travels/:id/reviews', reviewRoutes);
 
 
+app.get('/', (req, res) => {
+    res.render('home')
+})
+
 // Connection to mongo database 
-mongoose.connect('mongodb://localhost:27017/travelJournal', {
+mongoose.connect(dbUrl, {
     useNewUrlParser : true, // Allow monogoDB drivers to use new parser logic
     useUnifiedTopology : true,  // Mongo driver find server to send given operation and keep trying 
 })
@@ -99,7 +181,6 @@ const db = mongoose.connection;
 // Change stream objects to display events 
 db.once('open', () => console.log('MONOGODB CONNECTED!'))
 db.on('error', console.error.bind(console, 'MONGODB CONNECTION FAILED :('))
-
 
 // Middleware: Invalid Page
 app.all('*', (req, res, next) => {

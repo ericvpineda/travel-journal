@@ -23,7 +23,7 @@ const newUserAlice = async () => {
 }
 
 
-const total = 10;
+const total = 200;
 const seedDb = async () => {
 
     await Travel.deleteMany({});

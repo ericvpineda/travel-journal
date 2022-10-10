@@ -1,7 +1,32 @@
 const Travel = require('../models/travel');
 const Review = require('../models/review');
-const Joi = require('joi');
+const baseJoi = require('joi');
 const ExpressError = require('../utils/expressError');
+const sanitizeHTML = require('sanitize-html');
+
+const sanitizeHtmlExt = (joi) => ({
+    type: 'string',
+    base: joi.string(),
+    messages: {
+        'string.escapeHTML' : '{{#label}} must not include html!'
+    },
+    rules: {
+        escapeHTML: {
+            validate(value, helpers) {
+                const clean = sanitizeHTML(value, {
+                    allowedTags: [],
+                    allowedAttributes : {},
+                });
+                if (clean !== value) {
+                    return helpers.error('string.escapeHTML', {value})
+                }
+                return clean;
+            }
+        }
+    }
+})
+
+const Joi = baseJoi.extend(sanitizeHtmlExt);
 
 // Check user authentication 
 const isLoggedIn = (req, res, next) => {
@@ -27,10 +52,10 @@ const isAuthor = async (req, res, next) => {
 const validateTravel = (req, res, next) => {
     const travelSchema = Joi.object({
         travel: Joi.object({
-            title: Joi.string().required(),
+            title: Joi.string().required().escapeHTML(),
             price: Joi.number().min(0),
-            description: Joi.string().required(),
-            location: Joi.string().required(),
+            description: Joi.string().required().escapeHTML(),
+            location: Joi.string().required().escapeHTML(),
             // img: Joi.string().required()
         }).required(),
         deleteImages: Joi.array()
@@ -48,7 +73,7 @@ const validateReview = (req, res, next) => {
     const reviewSchema = Joi.object({
         review: Joi.object({
             rating: Joi.number().min(1).max(5).required(),
-            body: Joi.string().required()
+            body: Joi.string().required().escapeHTML()
         }).required()
     })
     const {error} = reviewSchema.validate(req.body);
@@ -69,6 +94,7 @@ const isReviewAuthor = async (req, res, next) => {
     }
     next();
 }
+
 
 module.exports.validateTravel = validateTravel;
 module.exports.validateReview = validateReview;

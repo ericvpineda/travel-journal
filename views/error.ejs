@@ -6,7 +6,10 @@
 
         <div class="alert alert-danger" role="alert" style="word-break:break-word;">
             <h4 class="alert-heading"><%= err.message %> </h4>
-            <p><%= err.stack %> </p>
+            <!-- Only render error stack if in development mode  -->
+            <% if (process.env.NODE_ENV !== 'production') { %> 
+                <p><%= err.stack %> </p>
+            <% } %> 
         </div>
 
     </div>

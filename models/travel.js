@@ -6,6 +6,9 @@ const imgSchema = new Schema({
     filename : String
 })
 
+// Note: By default, mongoose does not invlude virtuals when convert document to JSON
+const opts = {toJSON: {virtuals : true}};
+
 const travelSchema = new Schema({
     title : {
         type : String, 
@@ -38,7 +41,7 @@ const travelSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : 'User'
     }
-})
+}, opts);
 
 // Middleware to delete all reviews asso. with Travel element 
 travelSchema.post("findOneAndDelete", async (travel) => {
@@ -49,8 +52,14 @@ travelSchema.post("findOneAndDelete", async (travel) => {
 
 // Retrive thumbnails from cloudinary url and reduce size manually 
 // Note: only store urls in mongo (make it perceive that we stored image in db)
-imgSchema.virtual('thumbnail').get(() => {
+imgSchema.virtual('thumbnail').get(function() {
     return this.url.replace('/upload','/upload/w_200');
+})
+
+// Note: Cannot use arrow function with virtuals
+travelSchema.virtual('properties.popUp').get(function () {
+    return `<strong><a href="/travels/${this._id}">${this.title}</a></strong>
+            <p>${this.description.slice(0,15)}...`
 })
 
 const Travel = mongoose.model('Travel', travelSchema);

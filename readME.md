@@ -6,6 +6,7 @@ Questions to think about:
 - Problems to overcome:
     - Using postman to find server validation issues: 
         - schema used rating.body vs html used review[description]
+- different header protections from helmet package
 
 Future features:
 - redirect back to previous page after successfully logging in
@@ -15,6 +16,8 @@ Future features:
 - have default image if all images are deleted
     - restrict type of image uploaded? (server, client)
 - normalize picture size on slideshow
+- spinner with async data for index.ejs scroll 
+- Add "currently no reviews" to show.ejs
 
 Issues:
 - find way to validate strong password from user
