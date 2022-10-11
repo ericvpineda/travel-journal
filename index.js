@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== "production") {
 const express = require('express');
 const app = express();
 const path = require('path');
-const port = '3000';
+const port = process.env.PORT || '3000';
 const oneWeek = 1000 * 60 * 60 * 24 * 7;
 const mongoose = require('mongoose');
 const User = require('./models/users');

@@ -1,10 +1,11 @@
 {
-  "name": "4_travel_journal",
+  "name": "traveljournal",
   "version": "1.0.0",
   "description": "",
   "main": "boiler_plate.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
