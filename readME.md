@@ -18,6 +18,9 @@ Future features:
 - normalize picture size on slideshow
 - spinner with async data for index.ejs scroll 
 - Add "currently no reviews" to show.ejs
+- add actual time of update for each post 
+- add larger margins for index.ejs
+- make default review star or have validation on star selection?
 
 Issues:
 - find way to validate strong password from user
@@ -35,5 +38,5 @@ Solved Issues:
 - changin width of mapbox-sdk-js div causes pin to not be centered 
     --> inside of map.on("style.load", () => {...}), add in map.resize(); 
 
-
 EJS Shortcuts: https://marketplace.visualstudio.com/items?itemName=DigitalBrainstem.javascript-ejs-support
+
