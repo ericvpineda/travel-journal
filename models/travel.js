@@ -41,7 +41,7 @@ const travelSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : 'User'
     }
-}, opts);
+}, {timestamps : true}, opts);
 
 // Middleware to delete all reviews asso. with Travel element 
 travelSchema.post("findOneAndDelete", async (travel) => {

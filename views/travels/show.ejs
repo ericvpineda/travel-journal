@@ -42,6 +42,7 @@
               <li class="list-group-item">Location: <%= travel.location %></li>
               <li class="list-group-item">Price: $<%= travel.price %></li>
               <li class="list-group-item">Submitted by: <%= travel.author.username %></li>
+              <li class="list-group-item"><small class="text-muted">Last updated <%= timeUpdated %>  ago</small></li>
               <% if (currentUser && travel.author.equals(currentUser._id)) { %> 
                 <li class="list-group-item">
                   <a class="btn btn-primary" href="/travels">Back to Travel Journal</a>

@@ -18,12 +18,10 @@ Future features:
 - normalize picture size on slideshow
 - spinner with async data for index.ejs scroll 
 - Add "currently no reviews" to show.ejs
-- add actual time of update for each post 
-- add larger margins for index.ejs
-- make default review star or have validation on star selection?
 
 Features added:
 - star validation for non-star selection (js modification)
+- real time of travel post last updated (show.ejs, index.ejs)
 
 Issues:
 - find way to validate strong password from user

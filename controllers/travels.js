@@ -2,13 +2,18 @@ const Travel = require('../models/travel');
 const {cloudinary} = require('../cloudinary');
 const mbxGeocode = require('@mapbox/mapbox-sdk/services/geocoding')
 const stylesServices = mbxGeocode({accessToken: process.env.MAPBOX_TOKEN});
-
+const {pageLastUpdated} = require('../public/js/utils.js')
 
 // -- Control Functions for Travel -- 
 
 const index = async (req, res) => {
     const allTravels = await Travel.find({}).populate('author');
-    res.render('travels/index', {allTravels});
+    allTravels[0]['RANDOM'] = 10;
+    let timeUpdated = [];
+    for (let i = 0; i < allTravels.length; i++) {
+        timeUpdated.push(pageLastUpdated(allTravels[i].createdAt));
+    }
+    res.render('travels/index', {allTravels, timeUpdated});
 }
 
 const newForm = (req, res) => {
@@ -42,7 +47,8 @@ const show = async (req, res) => {
         req.flash('error', 'Error: Travel is invalid.')
         return res.redirect('/travels')
     }
-    res.render('travels/show', {travel})
+    const timeUpdated = pageLastUpdated(travel.createdAt);
+    res.render('travels/show', {travel, timeUpdated})
 }
 
 const editForm = async (req, res) => {
