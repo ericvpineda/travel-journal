@@ -28,7 +28,6 @@ const createForm = async (req, res, next) => {
     travel.img = req.files.map(file => ({url:file.path, filename: file.filename}));
     travel.author = req.user._id;
     await travel.save();
-    console.log(travel)
     req.flash('success', `Success! You've made a new Travel.`)
     res.redirect('/travels',)
 }
@@ -61,14 +60,12 @@ const updateForm = async (req, res) => {
     travel.img.push(...img);
     await travel.save();
     if (req.body.deleteImages) {
-        console.log(req.body.deleteImages)
         for (let file of req.body.deleteImages) {
             if (file.slice(-6) !== ".splsh") {
                 await cloudinary.uploader.destroy(file);
             }
         }
         await travel.updateOne({$pull : {img : {filename : {$in : req.body.deleteImages}}}});
-        console.log(travel)
     }
     if (!travel) {
         req.flash('error', 'Error: Travel is invalid.')

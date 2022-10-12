@@ -6,3 +6,4 @@ deleteTravelBtn.addEventListener('click', (e) => {
     e.preventDefault();
     deleteTravelForm.submit();
 })
+

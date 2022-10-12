@@ -6,7 +6,6 @@ const newReview = async (req, res) => {
     const review = new Review(req.body.review);
     const travel = await Travel.findById(id);
     travel.reviews.push(review);
-    console.log(req.user)
     review.author = req.user._id;
     await review.save();
     await travel.save();

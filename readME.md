@@ -22,9 +22,12 @@ Future features:
 - add larger margins for index.ejs
 - make default review star or have validation on star selection?
 
+Features added:
+- star validation for non-star selection (js modification)
+
 Issues:
 - find way to validate strong password from user
-- travel.post('/') route - need to validate travel before uploading image
+- travel.post('/') route - need to validate travel before uploading image`````
     - multer first uploads while parsing, then sends parsed body to req.body 
 - how to limit number of uploads to upload to cloudinary
 
