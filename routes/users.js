@@ -10,7 +10,7 @@ const {isLoggedIn} = require('../middleware/middleware');
 
 
 router.route('/register')
-    .get(userController.newUser) // Router: New User
+    .get(userController.newUser) // Route: New User
     .post(catchAsync(userController.createUser)); // Route: Post User
 
 // Note: 
@@ -26,7 +26,7 @@ router.route('/login')
 router.get('/logout', userController.logout);
 
 router.route('/:id/account')
-    .get(isLoggedIn, userController.account)
-    .delete(isLoggedIn, catchAsync(userController.deleteAccount))
+    .get(isLoggedIn, userController.account) // Route: account
+    .delete(isLoggedIn, catchAsync(userController.deleteAccount)) // Route: delete account
 
 module.exports = router;

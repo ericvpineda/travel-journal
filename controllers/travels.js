@@ -84,8 +84,7 @@ const updateForm = async (req, res) => {
 
 const deleteForm = async (req, res) => {
     const travel = await Travel.findByIdAndDelete(req.params.id);
-    const user = await User.findByIdAndUpdate(travel.author._id,{$inc : {numTravels : -1}}, {new : true})
-    console.log(user);
+    await User.findByIdAndUpdate(travel.author._id,{$inc : {numTravels : -1}}, {new : true})
     req.flash('success', `Success! You've deleted your Travel.`)
     res.redirect('/travels')
 }

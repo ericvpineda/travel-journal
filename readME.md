@@ -20,11 +20,11 @@ Future features:
 - Add "currently no reviews" to show.ejs
 - Add profile page
 - add light background color to make page fuller 
-- have settings page -> delete user (all reviews, travels asso)
 
 Features added:
 - star validation for non-star selection (js modification)
 - real time of travel post last updated (show.ejs, index.ejs)
+- basic account page (features: delete act)
 
 Issues:
 - find way to validate strong password from user
