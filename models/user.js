@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Review = require('./review');
+const Travel = require('./travel');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new Schema({
@@ -19,9 +20,11 @@ const userSchema = new Schema({
 })
 
 userSchema.post("findOneAndDelete", async (user) => {
-    // TODO: Delete all reviews and travels asso with user
     if (user.numReviews) {
         await Review.deleteMany({author : user._id});
+    }
+    if (user.numTravels) {
+        await Travel.deleteMany({author : user._id});
     }
 })
 
