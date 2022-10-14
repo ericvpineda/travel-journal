@@ -5,10 +5,10 @@ if (process.env.NODE_ENV !== "production") {
 const express = require('express');
 const app = express();
 const path = require('path');
-const port = process.env.PORT || '3000';
+const port = '3000' || process.env.PORT;
 const oneWeek = 1000 * 60 * 60 * 24 * 7;
 const mongoose = require('mongoose');
-const User = require('./models/users');
+const User = require('./models/user');
 const methodOveride = require('method-override')
 const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
@@ -17,7 +17,7 @@ const flash = require('connect-flash')
 const MongoDbStore = require('connect-mongo');
 const secret = process.env.SECRET || 'thisisahorriblesecret';
 
-let dbUrl = process.env.ATLAS_MONGO_DB_URL || 'mongodb://localhost:27017/travelJournal';
+let dbUrl = 'mongodb://localhost:27017/travelJournal' || process.env.ATLAS_MONGO_DB_URL;
 
 // Allow for multiple strategies for auth 
 const passport = require('passport');

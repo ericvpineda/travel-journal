@@ -3,6 +3,7 @@ const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const userController = require('../controllers/users');
 const passport = require('passport');
+const {isLoggedIn} = require('../middleware/middleware');
 
 
 // -- User Routes -- // 
@@ -23,5 +24,9 @@ router.route('/login')
 
 // Note: passport logout() funtion requires callback fxn
 router.get('/logout', userController.logout);
+
+router.route('/:id/account')
+    .get(isLoggedIn, userController.account)
+    .delete(isLoggedIn, catchAsync(userController.deleteAccount))
 
 module.exports = router;

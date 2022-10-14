@@ -3,12 +3,12 @@ const {cloudinary} = require('../cloudinary');
 const mbxGeocode = require('@mapbox/mapbox-sdk/services/geocoding')
 const stylesServices = mbxGeocode({accessToken: process.env.MAPBOX_TOKEN});
 const {pageLastUpdated} = require('../public/js/utils.js')
+const User = require('../models/user');
 
 // -- Control Functions for Travel -- 
 
 const index = async (req, res) => {
     const allTravels = await Travel.find({}).populate('author');
-    allTravels[0]['RANDOM'] = 10;
     let timeUpdated = [];
     for (let i = 0; i < allTravels.length; i++) {
         timeUpdated.push(pageLastUpdated(allTravels[i].createdAt));
@@ -33,6 +33,7 @@ const createForm = async (req, res, next) => {
     travel.img = req.files.map(file => ({url:file.path, filename: file.filename}));
     travel.author = req.user._id;
     await travel.save();
+    await User.findByIdAndUpdate(travel.author,{$inc : {numTravels : 1}})
     req.flash('success', `Success! You've made a new Travel.`)
     res.redirect('/travels',)
 }
@@ -82,7 +83,9 @@ const updateForm = async (req, res) => {
 }
 
 const deleteForm = async (req, res) => {
-    await Travel.findByIdAndDelete(req.params.id);
+    const travel = await Travel.findByIdAndDelete(req.params.id);
+    const user = await User.findByIdAndUpdate(travel.author._id,{$inc : {numTravels : -1}}, {new : true})
+    console.log(user);
     req.flash('success', `Success! You've deleted your Travel.`)
     res.redirect('/travels')
 }

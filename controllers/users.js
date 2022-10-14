@@ -1,4 +1,4 @@
-const User = require('../models/users');
+const User = require('../models/user');
 
 const newUser = (req, res) => {
     res.render('users/register');
@@ -48,4 +48,22 @@ const logout = (req, res, next) => {
     })
 };
 
-module.exports = {newUser, createUser, loginForm, login, logout};
+const account = (req, res) => {
+    res.render('users/account')
+}
+
+const deleteAccount = async (req, res) => {
+    await User.findByIdAndDelete(req.params.id);
+    wasLoggedIn = req.isAuthenticated();
+    req.logout(async (err) => { // Function provided by passport 
+        if (err) { 
+            next(error);
+        } else if (wasLoggedIn) {
+            req.flash('success', `Success! You've deleted your account.`);
+        }
+        res.redirect('/login'); 
+    })
+
+}
+
+module.exports = {newUser, createUser, loginForm, login, logout, account, deleteAccount};

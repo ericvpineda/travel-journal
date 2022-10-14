@@ -18,6 +18,9 @@ Future features:
 - normalize picture size on slideshow
 - spinner with async data for index.ejs scroll 
 - Add "currently no reviews" to show.ejs
+- Add profile page
+- add light background color to make page fuller 
+- have settings page -> delete user (all reviews, travels asso)
 
 Features added:
 - star validation for non-star selection (js modification)

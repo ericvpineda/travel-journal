@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Travel = require('../models/travel');
-const User = require('../models/users')
+const User = require('../models/user');
+const Review = require('../models/review');
 const cities = require('./cities');
 const titles = require("./titles");
 
@@ -15,8 +16,8 @@ db.on("error", console.error.bind(console, "UNABLE TO CONNECT SEED DB :("));
 
 // Fake author
 // Note: make sure to initialize in another async function 
-const newUserAlice = async () => {
-    let user = new User({username: 'aw', email: "wonderland@gmail.com"});
+const newUserAlice = async (total) => {
+    let user = new User({username: 'aw', email: "wonderland@gmail.com", numTravels:total});
     let regUser = await User.register(user, 'pw');
     await regUser.save();
     return regUser;
@@ -28,7 +29,8 @@ const seedDb = async () => {
 
     await Travel.deleteMany({});
     await User.deleteMany({});
-    const regUser = await newUserAlice();
+    await Review.deleteMany({});
+    const regUser = await newUserAlice(total)
 
     for (let i = 0; i < total; i++) {
         let firstIdx = Math.floor(Math.random() * titles.first.length);
