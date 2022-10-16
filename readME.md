@@ -18,6 +18,8 @@ Future features:
 - normalize picture size on slideshow
 - spinner with async data for index.ejs scroll 
 - Add "currently no reviews" to show.ejs
+- Add search bar for locations
+- add tags for easier search
 - Add profile page
 
 Features added:

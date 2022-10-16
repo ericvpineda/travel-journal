@@ -3,7 +3,7 @@
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
 
-<div class="p-5" style="height: 100%; background-color: white;">
+<div class="p-5" style="background-color: white;">
   
   <!-- Image with travel detail card  -->
   <div class="row">
@@ -64,7 +64,7 @@
   
         <% if (currentUser) { %>
   
-        <h2 class="mb-4">Leave a Review</h2>
+        <h2 class="mb-4 text-center">Leave a Review</h2>
   
          <!-- Review Form -->
          <form id="reviewForm" class="validated-form mb-3" action="/travels/<%= travel._id %>/reviews" method="post" novalidate>
@@ -97,11 +97,13 @@
           <button class="btn btn-success">Submit Review</button>
   
         </form>
-      <% } %>
+      <% } else { %>
+        <h2 class="mb-4 text-center">Currently no reviews.</h2>
+      <% } %> 
   
       <div class="infinite-scroll" data-mdb-infinite-direction="y" data-mdb-infinite-container="infinite-scroll-basic">
         <ul class="loading container list-group infinite-scroll infinite-scroll-basic" id="basic-example" style="max-height: 20rem; overflow-y: scroll">
-  
+        
         <% for(let review of travel.reviews) { %>
   
           <div class="card mb-3">
