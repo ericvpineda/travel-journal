@@ -19,12 +19,12 @@ Future features:
 - spinner with async data for index.ejs scroll 
 - Add "currently no reviews" to show.ejs
 - Add profile page
-- add light background color to make page fuller 
 
 Features added:
 - star validation for non-star selection (js modification)
 - real time of travel post last updated (show.ejs, index.ejs)
 - basic account page (features: delete act)
+- added light background to make page fuller
 
 Issues:
 - find way to validate strong password from user
