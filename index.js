@@ -1,7 +1,3 @@
-if (process.env.NODE_ENV !== "production") {
-    require('dotenv').config()
-}
-
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -17,7 +13,12 @@ const flash = require('connect-flash')
 const MongoDbStore = require('connect-mongo');
 const secret = process.env.SECRET || 'thisisahorriblesecret';
 
-let dbUrl = 'mongodb://localhost:27017/travelJournal' || process.env.ATLAS_MONGO_DB_URL;
+let dbUrl = process.env.ATLAS_MONGO_DB_URL;
+
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config()
+    dbUrl = 'mongodb://localhost:27017/travelJournal'
+}
 
 // Allow for multiple strategies for auth 
 const passport = require('passport');
