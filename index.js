@@ -10,8 +10,8 @@ const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash')
 const MongoDbStore = require('connect-mongo');
-const port = process.env.PORT;
-const secret = process.env.SECRET;
+let port = process.env.PORT;
+let secret = process.env.SECRET;
 let dbUrl = process.env.ATLAS_MONGO_DB_URL;
 
 if (process.env.NODE_ENV !== "production") {
