@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const port = '3000' || process.env.PORT;
 const oneWeek = 1000 * 60 * 60 * 24 * 7;
 const mongoose = require('mongoose');
 const User = require('./models/user');
@@ -11,13 +10,15 @@ const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash')
 const MongoDbStore = require('connect-mongo');
-const secret = process.env.SECRET || 'thisisahorriblesecret';
-
+const port = process.env.PORT;
+const secret = process.env.SECRET;
 let dbUrl = process.env.ATLAS_MONGO_DB_URL;
 
 if (process.env.NODE_ENV !== "production") {
-    require('dotenv').config()
-    dbUrl = 'mongodb://localhost:27017/travelJournal'
+    require('dotenv').config();
+    dbUrl = 'mongodb://localhost:27017/travelJournal';
+    port = '3000';
+    secret = 'thisisahorriblesecret';
 }
 
 // Allow for multiple strategies for auth 
