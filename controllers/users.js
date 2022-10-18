@@ -66,4 +66,9 @@ const deleteAccount = async (req, res) => {
 
 }
 
-module.exports = {newUser, createUser, loginForm, login, logout, account, deleteAccount};
+const profile = async (req, res) => {
+    console.log("here")
+    res.render('users/profile');
+}
+
+module.exports = {profile, newUser, createUser, loginForm, login, logout, account, deleteAccount};

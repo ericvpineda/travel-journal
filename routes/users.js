@@ -22,6 +22,9 @@ router.route('/login')
     .post(passport.authenticate('local', // Route : Post Login
         {failureFlash : true, failureRedirect : '/login', keepSessionInfo : true}), userController.login);
 
+router.route('/:id/profile')
+    .get(isLoggedIn, catchAsync(userController.profile))
+
 // Note: passport logout() funtion requires callback fxn
 router.get('/logout', userController.logout);
 
