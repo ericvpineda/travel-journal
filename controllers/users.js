@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const Travel = require('../models/travel');
+const {pageLastUpdated} = require('../public/js/utils.js')
 
 const newUser = (req, res) => {
     res.render('users/register');
@@ -67,8 +69,21 @@ const deleteAccount = async (req, res) => {
 }
 
 const profile = async (req, res) => {
-    console.log("here")
-    res.render('users/profile');
+    
+    const user = await User.findById(req.params.id);
+    let allTravels = [];
+    
+    if (user.numTravels) {
+        allTravels = await Travel.find({author : req.params.id})
+        let timeUpdated = [];
+        for (let i = 0; i < allTravels.length; i++) {
+            timeUpdated.push(pageLastUpdated(allTravels[i].createdAt));
+        }
+        res.render('users/profile', {allTravels, timeUpdated, user});
+    } else {
+        res.render('users/profile', {allTravels, user})
+    }
+    
 }
 
 module.exports = {profile, newUser, createUser, loginForm, login, logout, account, deleteAccount};
