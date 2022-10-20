@@ -7,7 +7,7 @@ const imgSchema = new Schema({
 })
 
 // Note: By default, mongoose does not invlude virtuals when convert document to JSON
-const opts = {toJSON: {virtuals : true}};
+const opts = {toJSON: {virtuals : true}, timestamps : true};
 
 const travelSchema = new Schema({
     title : {
@@ -41,7 +41,7 @@ const travelSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : 'User'
     }
-}, {timestamps : true}, opts);
+}, opts);
 
 // Middleware to delete all reviews asso. with Travel element 
 travelSchema.post("findOneAndDelete", async (travel) => {
@@ -57,7 +57,7 @@ imgSchema.virtual('thumbnail').get(function() {
 })
 
 // Note: Cannot use arrow function with virtuals
-travelSchema.virtual('properties.popUp').get(function () {
+travelSchema.virtual('properties.popup').get(function () {
     return `<strong><a href="/travels/${this._id}">${this.title}</a></strong>
             <p>${this.description.slice(0,15)}...`
 })

@@ -16,7 +16,7 @@ map.on("load", () => {
     type: "geojson",
     // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
     // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-    data: allTravels,
+    data: allTravelsJSON,
     cluster: true,
     clusterMaxZoom: 14, // Max zoom to cluster points on
     clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
@@ -95,7 +95,7 @@ map.on("load", () => {
   // description HTML from its properties.
   map.on("click", "unclustered-point", (e) => {
     const coordinates = e.features[0].geometry.coordinates.slice();
-    const text = e.features[0].properties.popUp;
+    const text = e.features[0].properties.popup;
 
     // Ensure that if the map is zoomed out such that
     // multiple copies of the feature are visible, the
