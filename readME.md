@@ -14,6 +14,8 @@
  - Account: Simple information of user including picture, short description and travel posts. 
 
 ## API
+- Back-end server: [Node.js](https://nodejs.org/en/)
+- Front-end framework: [Bootstrap 5.2](https://blog.getbootstrap.com/2022/07/19/bootstrap-5-2-0/)
 - No-SQL Database: [MongoDB Atlas](https://www.mongodb.com/atlas/database)
 - Web application framework: [Express](https://expressjs.com/) 
 - 2D Map: [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/guides/)
