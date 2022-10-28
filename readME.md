@@ -1,10 +1,9 @@
 # travel_journal
-Blog-style journal to create, review, and pin travels on 2d map.
 ![Travel Journal home page](./public/img/home_page.jpg)
 
 ## Description
-- Node.js app to create, review, and pin travels in blog style journal.
-- Website: [travel-journal-berk.herokuapp.com/](travel-journal-berk.herokuapp.com/)
+- Node.js application to create, review, and pin travels in blog-style journal.
+- Website: [https://travel-journal-berk.herokuapp.com/](https://travel-journal-berk.herokuapp.com/)
 
 ## Routes
  - Home: Introduction page that links to travel posts of all users.
