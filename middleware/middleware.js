@@ -4,6 +4,9 @@ const baseJoi = require('joi');
 const ExpressError = require('../utils/expressError');
 const sanitizeHTML = require('sanitize-html');
 
+// Middleware used for client and server side validation 
+
+// Exntention used for joi schema 
 const sanitizeHtmlExt = (joi) => ({
     type: 'string',
     base: joi.string(),
@@ -26,9 +29,10 @@ const sanitizeHtmlExt = (joi) => ({
     }
 })
 
+// Joi object used for server side validation 
 const Joi = baseJoi.extend(sanitizeHtmlExt);
 
-// Check user authentication 
+// Check user login authentication 
 const isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl; // Allow return to original url if user originally did not have access
@@ -39,6 +43,7 @@ const isLoggedIn = (req, res, next) => {
     
 }
 
+// Validate user has authorization for selected travel
 const isAuthor = async (req, res, next) => {
     const travel = await Travel.findById(req.params.id);
     if (travel && !travel.author.equals(req.user._id)) {
@@ -48,7 +53,7 @@ const isAuthor = async (req, res, next) => {
     next();
 }
 
-// Server side validation: Prevent 3rd party post routes from creating new Travel data
+// Serverside validation for Travel schema 
 const validateTravel = (req, res, next) => {
     const travelSchema = Joi.object({
         travel: Joi.object({
@@ -69,6 +74,7 @@ const validateTravel = (req, res, next) => {
     }
 }
 
+// Serverside validation for review schema 
 const validateReview = (req, res, next) => {
     const reviewSchema = Joi.object({
         review: Joi.object({
@@ -85,6 +91,7 @@ const validateReview = (req, res, next) => {
     }
 }
 
+// Validate if user is author of selecte review 
 const isReviewAuthor = async (req, res, next) => {
     const {id, reviewId} = req.params;
     const review = await Review.findById(reviewId);

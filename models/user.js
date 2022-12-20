@@ -4,6 +4,9 @@ const Review = require('./review');
 const Travel = require('./travel');
 const passportLocalMongoose = require('passport-local-mongoose');
 
+// Schema for user object
+
+// Define user schema 
 const userSchema = new Schema({
     email : {
         type : String,
@@ -19,6 +22,7 @@ const userSchema = new Schema({
     }
 })
 
+// If delteing user, delete associated reviews and travels 
 userSchema.post("findOneAndDelete", async (user) => {
     if (user.numReviews) {
         await Review.deleteMany({author : user._id});
@@ -28,6 +32,7 @@ userSchema.post("findOneAndDelete", async (user) => {
     }
 })
 
+// Handle user password and login encryption 
 userSchema.plugin(passportLocalMongoose);
 
 const User = mongoose.model('User', userSchema);

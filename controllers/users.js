@@ -2,12 +2,16 @@ const User = require('../models/user');
 const Travel = require('../models/travel');
 const {pageLastUpdated} = require('../public/js/utils.js')
 
+// Control functions for User object
+
+// Render register user page 
 const newUser = (req, res) => {
     res.render('users/register');
 };
 
-// Note: try/catch prevents redirecting to error page without functionality
+// Post route to create new user 
 const createUser = async(req, res) => {
+    // Note: try/catch prevents redirecting to error page without functionality
     try {
         const {username, password, email} = req.body;
         const user = new User({username, email});
@@ -27,10 +31,12 @@ const createUser = async(req, res) => {
     }
 };
 
+// Render login page 
 const loginForm = (req, res) => {
     res.render('users/login');
 };
 
+// Post route for login with session return page 
 const login = (req, res) => {
     req.flash('success', `Welcome back ${req.body.username}!`);
     const redirectUrl = req.session.returnTo || '/travels'
@@ -38,6 +44,7 @@ const login = (req, res) => {
     res.redirect(redirectUrl);
 };
 
+// Post route for logout 
 const logout = (req, res, next) => {
     wasLoggedIn = req.isAuthenticated();
     req.logout((err) => { // Function provided by passport 
@@ -50,10 +57,12 @@ const logout = (req, res, next) => {
     })
 };
 
+// Render user account 
 const account = (req, res) => {
     res.render('users/account')
 }
 
+// Post route to delete user account 
 const deleteAccount = async (req, res) => {
     await User.findByIdAndDelete(req.params.id);
     wasLoggedIn = req.isAuthenticated();
@@ -68,6 +77,7 @@ const deleteAccount = async (req, res) => {
 
 }
 
+// Render user profile page 
 const profile = async (req, res) => {
     
     const user = await User.findById(req.params.id);

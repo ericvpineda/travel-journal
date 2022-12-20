@@ -1,3 +1,6 @@
+// JS utilities file  
+
+// Used for travel post time last updated 
 const pageLastUpdated = (date) => {
     const prevDate = new Date(date);
     const presDate = new Date();

@@ -1,3 +1,5 @@
+// Boilerplate to create basic node folders and files 
+
 const fs = require('fs');
 
 const boilerPlate = (name) => {

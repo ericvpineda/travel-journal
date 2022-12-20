@@ -1,5 +1,7 @@
-// js to show mapbox map onto show.ejs
+// Assign accesstoken from show.ejs js tag 
 mapboxgl.accessToken = mapToken;
+
+// Instantiate map object 
 const map = new mapboxgl.Map({
   container: "map", // container ID
   style: "mapbox://styles/mapbox/streets-v11", // style URL
@@ -14,6 +16,7 @@ map.on("style.load", () => {
   map.resize(); 
 });
 
+// Add map popups with title and link to travel show page
 const marker = new mapboxgl.Marker()
   .setLngLat(travel.geometry.coordinates)
   .setPopup(

@@ -14,6 +14,7 @@ let port = process.env.PORT;
 let secret = process.env.SECRET;
 let dbUrl = process.env.ATLAS_MONGO_DB_URL;
 
+// Development mode variables 
 if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
     dbUrl = 'mongodb://localhost:27017/travelJournal';
@@ -88,6 +89,7 @@ app.use(passport.initialize());
 app.use(passport.session())
 // Use passports local strategy on user authenticate model (from passport-local-mongoose) 
 passport.use(new LocalStrategy(User.authenticate()));
+passport.use(User.createStrategy());
 
 // Used for storing and remove users in session
 passport.serializeUser(User.serializeUser());

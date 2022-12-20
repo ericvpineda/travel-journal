@@ -1,3 +1,5 @@
+// Class to hold error codes and messages 
+
 class ExpressError extends Error {
 
     constructor(errorCode, message) {

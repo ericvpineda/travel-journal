@@ -5,8 +5,9 @@ const stylesServices = mbxGeocode({accessToken: process.env.MAPBOX_TOKEN});
 const {pageLastUpdated} = require('../public/js/utils.js')
 const User = require('../models/user');
 
-// -- Control Functions for Travel -- 
+// -- Control Functions for Travel Object -- 
 
+// Render travel index page 
 const index = async (req, res) => {
     const allTravels = await Travel.find({}).populate('author');
     let timeUpdated = [];
@@ -16,10 +17,12 @@ const index = async (req, res) => {
     res.render('travels/index', {allTravels, timeUpdated});
 }
 
+// Render travel new form 
 const newForm = (req, res) => {
     res.render('travels/new');
 }
 
+// Post route to create new travel  
 const createForm = async (req, res, next) => {
     const geoData = await stylesServices.forwardGeocode({
         query : req.body.travel.location,
@@ -38,6 +41,7 @@ const createForm = async (req, res, next) => {
     res.redirect('/travels',)
 }
 
+// Render travel show page 
 const show = async (req, res) => {
     const travel = await Travel.findById(req.params.id).populate({
         // Populating authors of reviews of specific travel 
@@ -52,6 +56,7 @@ const show = async (req, res) => {
     res.render('travels/show', {travel, timeUpdated})
 }
 
+// Render edit page 
 const editForm = async (req, res) => {
     const travel = await Travel.findById(req.params.id);
     if (!travel) {
@@ -61,6 +66,7 @@ const editForm = async (req, res) => {
     res.render('travels/edit', {travel});
 }
 
+// Post route to update travel information 
 const updateForm = async (req, res) => {
     const travel = await Travel.findByIdAndUpdate(req.params.id, {...req.body.travel});
     const img = req.files.map(file => ({url:file.path, filename: file.filename}));
@@ -82,6 +88,7 @@ const updateForm = async (req, res) => {
     res.redirect(`/travels/${travel._id}`);
 }
 
+// Post route to delete travel 
 const deleteForm = async (req, res) => {
     const travel = await Travel.findByIdAndDelete(req.params.id);
     await User.findByIdAndUpdate(travel.author._id,{$inc : {numTravels : -1}}, {new : true})

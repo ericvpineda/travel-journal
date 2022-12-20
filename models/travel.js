@@ -1,14 +1,19 @@
 const mongoose = require('mongoose');
 const Review = require('./review');
 const Schema = mongoose.Schema;
+
+// Schema for travel objects 
+
+// Schema for images 
 const imgSchema = new Schema({
     url : String,
     filename : String
 })
 
-// Note: By default, mongoose does not invlude virtuals when convert document to JSON
+// Note: By default, mongoose does not include virtuals when convert document to JSON
 const opts = {toJSON: {virtuals : true}, timestamps : true};
 
+// Travel schema definition 
 const travelSchema = new Schema({
     title : {
         type : String, 
