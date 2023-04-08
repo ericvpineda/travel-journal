@@ -17,7 +17,7 @@ let dbUrl = process.env.ATLAS_MONGO_DB_URL;
 // Development mode variables 
 if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
-    dbUrl = 'mongodb://localhost:27017/travelJournal';
+    dbUrl = 'mongodb://127.0.0.1:27017/travelJournal';
     port = '3000';
     secret = 'thisisahorriblesecret';
 }
@@ -173,6 +173,9 @@ app.use('/travels/:id/reviews', reviewRoutes);
 app.get('/', (req, res) => {
     res.render('home')
 })
+
+// Used to supress warning message
+mongoose.set('strictQuery', true);
 
 // Connection to mongo database 
 mongoose.connect(dbUrl, {

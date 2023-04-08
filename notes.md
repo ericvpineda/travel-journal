@@ -31,6 +31,8 @@ Issues:
     - multer first uploads while parsing, then sends parsed body to req.body 
 - how to limit number of uploads to upload to cloudinary
 - mapbox route index.js not working
+- Heroku no longer has free dyno tier 
+    - change hosting website
 
 Solved Issues:
 - Passport duplicate emails from different accounts 
