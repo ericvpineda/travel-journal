@@ -15,12 +15,12 @@ let secret = process.env.SECRET;
 let dbUrl = process.env.ATLAS_MONGO_DB_URL;
 
 // Development mode variables 
-if (process.env.NODE_ENV !== "production") {
-    require('dotenv').config();
-    dbUrl = 'mongodb://127.0.0.1:27017/travelJournal';
-    port = '3000';
-    secret = 'thisisahorriblesecret';
-}
+// if (process.env.NODE_ENV !== "production") {
+//     require('dotenv').config();
+//     dbUrl = 'mongodb://127.0.0.1:27017/travelJournal';
+//     port = '3000';
+//     secret = 'thisisahorriblesecret';
+// }
 
 // Allow for multiple strategies for auth 
 const passport = require('passport');
