@@ -1,0 +1,56 @@
+<!-- User register page  -->
+
+<% layout('layout/boilerplate') %> 
+
+<div class="container my-5">
+
+  <div class="row">
+    
+    <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+      <div class="card shadow">
+        <div class="card-body">
+
+          <img src="https://images.unsplash.com/photo-1528543606781-2f6e6857f318?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80" alt="" style="height:300px; object-fit:cover; object-position: 20% 50%;" class="card-img-top">
+
+          <form class="validated-form" action="/register" method="post" novalidate>
+
+            <h5 class="text-center mt-3">Register</h5>
+        
+                <div class="col-8 offset-2">
+        
+                    <div class="mb-3">
+                        <label class="form-label" for="username">Username:</label>
+                        <input class="form-control" type="text" name="username" placeholder="Username" required autofocus>
+                        <div class="valid-feedback">Look's good!</div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label" for="password">Password:</label>
+                        <input class="form-control" type="password" name="password" placeholder="Password" required>
+                        <div class="valid-feedback">Look's good!</div>
+                      </div>
+                      
+                      <div class="mb-3">
+                        <label class="form-label" for="email">Email:</label>
+                        <input class="form-control" type="email" name="email" placeholder="Email" required>
+                        <div class="valid-feedback">Look's good!</div>
+                      </div>
+                      
+                      <div class="mb-3 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success">Sign Up</button>
+                      </div>
+
+                      <div>Have an account? <a href="/login">Login In</a></div>
+        
+                </div>
+        
+        </form>
+        
+                  
+
+        </div>
+    
+      </div>
+    </div>
+  </div>
+
+</div>

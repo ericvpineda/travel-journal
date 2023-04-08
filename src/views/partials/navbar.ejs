@@ -1,0 +1,41 @@
+<!-- Navigation bar at fixed to top of page  -->
+
+<nav class="navbar navbar-expand-lg bg-dark">
+    <div class="container-fluid" style="max-width: 80vw">
+      <a class="navbar-brand navbar-dark" href="/">TJ</a>
+      <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse navbar-dark" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/travels">All Travels</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/travels/new">New Travel</a>
+          </li>
+        </ul>
+        <div class="navbar-nav ml-auto"> 
+          <% if (currentUser) {%> 
+            <span class="nav-link "></span>
+            <div class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown">
+                Welcome <%= currentUser.username %>!
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/<%= currentUser._id %>/profile">Profile</a></li>
+                <li><a class="dropdown-item" href="/<%= currentUser._id %>/account">Account</a></li>
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              </ul>
+            </div>
+          <% } else { %> 
+            <a class="nav-link" href="/register">Register</a>
+            <a class="nav-link" href="/login">Login</a>
+          <% } %> 
+        </div>
+      </div>
+    </div>
+  </nav>
