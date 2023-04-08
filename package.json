@@ -5,7 +5,8 @@
   "main": "boiler_plate.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "set NODE_ENV=production&& node index.js"
   },
   "repository": {
     "type": "git",
