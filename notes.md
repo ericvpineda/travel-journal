@@ -46,3 +46,11 @@ Solved Issues:
 
 EJS Shortcuts: https://marketplace.visualstudio.com/items?itemName=DigitalBrainstem.javascript-ejs-support
 
+Hosting service:
+- moved from Heroku -> AWS EC2 
+-   videos:
+-    - creating ec2 instance: https://www.youtube.com/watch?v=q-XEGbipOVw
+-    - changing dns name: https://www.youtube.com/watch?v=84IFIywD6UM&t=300s
+-    - installing node on virtual machine: https://www.youtube.com/watch?v=oHAQ3TzUTro
+-       - note: update commands to include CURRENT version of ndoe
+-   Reasoning: Heroku does not have free tier anymore
