@@ -3,7 +3,7 @@
 
 ## Description
 - Node.js application to create, review, and pin travels in blog-style journal.
-- Website: [https://travel-journal-berk.herokuapp.com/](https://travel-journal-berk.herokuapp.com/)
+- Website: [https://52.41.162.217/](https://52.41.162.217/)
 
 ## Routes
  - Home: Introduction page that links to travel posts of all users.
@@ -20,6 +20,8 @@
 - Web application framework: [Express](https://expressjs.com/) 
 - 2D Map: [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/guides/)
 - Review stars: [Starability](https://github.com/LunarLogic/starability)
+- Virtual server: [Amazon EC2](https://aws.amazon.com/ec2/)
+- SSL certificate: [ZeroSSL](https://zerossl.com/)
 
 ## Security Coverage 
 - No-SQL Mongo Injection: [express-mongo-sanitize](https://www.npmjs.com/package/express-mongo-sanitize) 
