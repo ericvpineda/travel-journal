@@ -49,8 +49,19 @@ EJS Shortcuts: https://marketplace.visualstudio.com/items?itemName=DigitalBrains
 Hosting service:
 - moved from Heroku -> AWS EC2 
 -   videos:
--    - creating ec2 instance: https://www.youtube.com/watch?v=q-XEGbipOVw
--    - changing dns name: https://www.youtube.com/watch?v=84IFIywD6UM&t=300s
--    - installing node on virtual machine: https://www.youtube.com/watch?v=oHAQ3TzUTro
--       - note: update commands to include CURRENT version of ndoe
+    - creating ec2 instance: https://www.youtube.com/watch?v=q-XEGbipOVw
+        - node: 
+            - be CAREFUL which version of amazon linux to install (2023 vs Amazon Linux 2)
+            - browser will not load css properly without valid SSL (shows website as half of page)
+        - SSL certificate (zerossl)
+            - 52.41.162.217 -- expires 7/10/23
+    - changing dns name: https://www.youtube.com/watch?v=84IFIywD6UM&t=300s
+    - installing node on virtual machine: https://www.sammeechward.com/deploy-node-app-on-aws-ec2-amazon-linux-2
+       - note: update commands to include CURRENT version of node
 -   Reasoning: Heroku does not have free tier anymore
+
+pm2 commands (process manager for node.js applications)
+- pm2 start index.js 
+    - Note: do not need to manually run start script (will do so automatically)
+- pm2 stop index.js
+- pm2 delete index.js

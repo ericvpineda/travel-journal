@@ -10,13 +10,14 @@ const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash')
 const MongoDbStore = require('connect-mongo');
+require('dotenv').config();
+
 let port = process.env.PORT;
 let secret = process.env.SECRET;
 let dbUrl = process.env.ATLAS_MONGO_DB_URL;
 
 // Development mode variables 
 if (process.env.NODE_ENV === "development") {
-    require('dotenv').config();
     dbUrl = 'mongodb://127.0.0.1:27017/travelJournal';
     port = '3000';
     secret = 'thisisahorriblesecret';
@@ -169,7 +170,6 @@ app.use('/travels', travelRoutes);
 // Routing function for Review routes
 app.use('/travels/:id/reviews', reviewRoutes);
 
-
 app.get('/', (req, res) => {
     res.render('home')
 })
@@ -207,4 +207,14 @@ app.listen(port, () => {
     console.log(`SERVER ${port} IS LISTENING...`);
 })
 
-
+// Https server 
+const fs = require('fs');
+const cred = {
+    key: fs.readFileSync('credentials/private.key'),
+    cert: fs.readFileSync('credentials/certificate.crt')
+}
+const https = require('https');
+const httpsPort = 8443
+https.createServer(cred, app).listen(httpsPort, () => {
+    console.log(`HTTPS server is listening on port ${httpsPort}`)
+})
