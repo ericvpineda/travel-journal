@@ -3,7 +3,7 @@
 
 ## Description
 - Node.js application to create, review, and pin travels in blog-style journal.
-- Website: [https://52.41.162.217/](https://52.41.162.217/)
+- Website: [https://travel-journal-nlm9.onrender.com](https://travel-journal-nlm9.onrender.com)
 
 ## Routes
  - Home: Introduction page that links to travel posts of all users.
@@ -17,11 +17,11 @@
 - Back-end server: [Node.js](https://nodejs.org/en/)
 - Front-end framework: [Bootstrap 5.2](https://blog.getbootstrap.com/2022/07/19/bootstrap-5-2-0/)
 - No-SQL Database: [MongoDB Atlas](https://www.mongodb.com/atlas/database)
+- ODM: [Mongoose](https://mongoosejs.com/)
+- Javascript Data Validation: [Joi](https://github.com/hapijs/joi)
 - Web application framework: [Express](https://expressjs.com/) 
 - 2D Map: [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/guides/)
 - Review stars: [Starability](https://github.com/LunarLogic/starability)
-- Virtual server: [Amazon EC2](https://aws.amazon.com/ec2/)
-- SSL certificate: [ZeroSSL](https://zerossl.com/)
 
 ## Security Coverage 
 - No-SQL Mongo Injection: [express-mongo-sanitize](https://www.npmjs.com/package/express-mongo-sanitize) 
